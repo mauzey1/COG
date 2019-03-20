@@ -21,7 +21,7 @@ class OverridingFileStorage(FileSystemStorage):
     def save(self, name, content, max_length=None): 
         # must delete current file first  
         if self.exists(name):
-            print 'Deleting existing file=%s' % name
+            print('Deleting existing file=%s' % name)
             self.delete(name)     
         # also, look for Doc objects for the same named file  
         prefix = getattr(settings, "FILEBROWSER_DIRECTORY", "")

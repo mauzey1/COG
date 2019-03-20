@@ -68,7 +68,7 @@ def getProjectNotVisibleRedirect(request, project):
 def set_openid_cookie(response, openid):
     """Utility method to consistently set the openid cookie."""
     
-    print 'SETTING openid cookie to: %s' % openid
+    print('SETTING openid cookie to: %s' % openid)
     
     response.set_cookie('openid', openid, 
                         expires=(datetime.datetime.now() + datetime.timedelta(days=3650)),  # expires in 10 years
@@ -151,7 +151,7 @@ def get_all_shared_user_info(user, includeCurrentSite=True):
         if user.profile.openid() is not None:
             
             openid = user.profile.openid()
-            print 'Retrieving projects, groups for user with openid=%s' % openid
+            print('Retrieving projects, groups for user with openid=%s' % openid)
             
             # loop over remote (enabled) nodes, possibly add current node
             sites = list(getPeerSites())
@@ -161,12 +161,12 @@ def get_all_shared_user_info(user, includeCurrentSite=True):
             for site in sites:
                             
                 url = "http://%s/share/user/?openid=%s" % (site.domain, openid)
-                print 'Retrieving user projects and groups from URL=%s' % url
+                print('Retrieving user projects and groups from URL=%s' % url)
                 jobj = getJson(url)
                 if jobj is not None and openid in jobj['users']:
                     userDict[site] = jobj['users'][openid] 
                 else:
-                    print 'Openid=%s not found at site=%s' % (openid, site)
+                    print('Openid=%s not found at site=%s' % (openid, site))
                                                             
     except UserProfile.DoesNotExist:
         pass  # user profile not yet created

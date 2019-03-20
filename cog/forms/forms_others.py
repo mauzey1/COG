@@ -126,7 +126,7 @@ class DocForm(ModelForm):
                        
             file_ext = str(os.path.splitext(thefile.name)[1])
             mime_type = magic.from_buffer(thefile.read(1024), mime=True)
-            print "Validating file extension=%s, mime type=%s" % (file_ext, mime_type)
+            print("Validating file extension=%s, mime type=%s" % (file_ext, mime_type))
             if not file_ext:
                 self._errors["file"] = self.error_class(["File name must have an extension."])
             elif file_ext.lower() not in VALID_MIME_TYPES.keys():

@@ -102,7 +102,7 @@ def bookmark_add(request, project_short_name):
             return HttpResponseRedirect(reverse('bookmark_list', args=[project.short_name.lower()]))
                           
         else:
-            print 'Form is invalid: %s' % form.errors
+            print('Form is invalid: %s' % form.errors)
             return render_bookmark_form(request, project, form) 
 
 
@@ -132,7 +132,7 @@ def bookmark_add2(request, project_short_name):
             response_data['message'] = 'Your bookmark was saved.'
                                       
         else:
-            print 'Form is invalid: %s' % form.errors
+            print('Form is invalid: %s' % form.errors)
             # encode errors in response - although not used
             for key, value in form.errors.items():
                 response_data['errors'][key] = value           
@@ -198,7 +198,7 @@ def bookmark_update(request, project_short_name, bookmark_id):
             # update associated Doc, if any
             doc = getDocFromBookmark(bookmark)
             if doc is not None:
-                print 'Updating associated doc: %s' % doc
+                print('Updating associated doc: %s' % doc)
                 doc.title = bookmark.name
                 doc.description = bookmark.description
                 doc.save()
@@ -207,7 +207,7 @@ def bookmark_update(request, project_short_name, bookmark_id):
             return HttpResponseRedirect(reverse('bookmark_list', args=[project.short_name.lower()]))
             
         else:
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             # return to view
             return render_bookmark_form(request, project, form)  
     
@@ -261,7 +261,7 @@ def folder_add(request, project_short_name):
             
         else:
             # return to view
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             return render_folder_form(request, project, form) 
 
 
@@ -295,7 +295,7 @@ def folder_update(request, project_short_name, folder_id):
             
         else:
             # return to view
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             return render_folder_form(request, folder.project, form) 
 
 
@@ -331,11 +331,11 @@ def delete_folder(folder):
     
     # delete folder bookmarks
     for bookmark in folder.bookmark_set.all():
-        print 'Deleting bookmark=%s' % bookmark
+        print('Deleting bookmark=%s' % bookmark)
         bookmark.delete()
 
     # delete this folder
-    print 'Deleting folder=%s' % folder
+    print('Deleting folder=%s' % folder)
     folder.delete()
 
 

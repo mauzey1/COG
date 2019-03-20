@@ -75,7 +75,7 @@ def news_update(request, news_id):
         
         # invalid data
         else:
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             news = form.instance
             return render_news_form(request, request.POST, form, news.project)
 
@@ -130,7 +130,7 @@ def news_add(request, project_short_name):
         
         # invalid data
         else:
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             news = form.instance
             return render_news_form(request, request.POST, form, news.project)
 

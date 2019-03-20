@@ -28,10 +28,10 @@ class SiteManager(object):
         try:
             config = self.config.read( SiteManager.CONFIGFILEPATH )
             logging.info("Site manager: using CoG settings from file(s): %s" % config)
-            print 'Initialized CoG settings from file: %s' % SiteManager.CONFIGFILEPATH
+            print('Initialized CoG settings from file: %s' % SiteManager.CONFIGFILEPATH)
             
         except Exception as e:
-            print "Error reading site settings configuration file: %s" % SiteManager.CONFIGFILEPATH
+            print("Error reading site settings configuration file: %s" % SiteManager.CONFIGFILEPATH)
 
     def get(self, name, section='DEFAULT', default=None):
         '''Method that retrieves a settings value from a specified section of the configuration file.'''

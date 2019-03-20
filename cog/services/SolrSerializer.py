@@ -115,7 +115,7 @@ def deserialize(xml, facetProfile):
                             
         
     except (ValueError, LookupError) as err:
-        print "Error: %s" % err    
+        print("Error: %s" % err)    
     return output
 
 def _encode_field_value(record, name, value):

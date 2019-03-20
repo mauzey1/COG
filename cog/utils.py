@@ -35,7 +35,7 @@ def clean_field(form, field, invalid_characters):
     #    raise forms.ValidationError("The field %s contains invalid characters" % field)
     for c in data:
         if re.match(invalid_characters, c):
-            print 'Invalid character: %s' % c
+            print('Invalid character: %s' % c)
             raise forms.ValidationError("The character '%s' is invalid." % c)
     return data
 
@@ -72,8 +72,8 @@ def getJson(url):
         return json.loads(jdoc)
         
     except Exception as e:
-        print e
-        print 'Error retrieving URL=%s' % url
+        print(e)
+        print('Error retrieving URL=%s' % url)
         return None
     
 def check_filepath(file_full_path, expected_file_names):

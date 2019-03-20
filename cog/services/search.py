@@ -43,7 +43,7 @@ class SolrSearchService:
                 params.append( ("facets", facetlist) )
                 
         url = self.url+"?"+urllib.urlencode(params)
-        print 'ESGF search URL=%s' % url
+        print('ESGF search URL=%s' % url)
         fh = urllib2.urlopen( url )
         xml = fh.read().decode("UTF-8")
    

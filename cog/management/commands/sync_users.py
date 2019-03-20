@@ -24,21 +24,21 @@ class Command(BaseCommand):
                 
                 # test user existence by accessing the profile page
                 userProfileUrl = user.profile.getAbsoluteUrl()
-                print "\nChecking user at URL: %s" % userProfileUrl.decode("utf-8")
+                print("\nChecking user at URL: %s" % userProfileUrl.decode("utf-8"))
                 
                 try:
                     response = urllib.urlopen( userProfileUrl )
                     if response.getcode()==HTTP_STATUS_CODE_NOT_FOUND:
                         
-                        print '\tUser not found on remote node %s, deleting from local database...' % user.profile.site.domain
+                        print('\tUser not found on remote node %s, deleting from local database...' % user.profile.site.domain)
                         # delete this user from local database
                         user.delete()
                     else:
-                        print '\tUser found.'
+                        print('\tUser found.')
                          
                 # error checking this user
                 except Exception as exception:
-                    print 'Error checking URL: %s skipping... ' % userProfileUrl
-                    print exception
+                    print('Error checking URL: %s skipping... ' % userProfileUrl)
+                    print(exception)
                     pass
                     

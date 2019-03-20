@@ -78,7 +78,7 @@ class CogConfig(object):
                 logging.info("Configuration file: %s not found, will create new one" % CONFIGFILEPATH )
             
         except Exception as e:
-            print e
+            print(e)
             logging.error("Error reading configuration file: %s" % CONFIGFILEPATH)
             logging.error(e)
 

@@ -120,7 +120,7 @@ def governance_overview_update(request, project_short_name):
             
         # return to form
         else:
-            print 'Form is invalid %s' % form.errors
+            print('Form is invalid %s' % form.errors)
             return render_governance_overview_form(request, form, project)
 
     
@@ -195,7 +195,7 @@ def governance_object_update(request, project_short_name, tab, objectType, objec
             return redirect
             
         else:
-            print 'Formset is invalid  %s' % formset.errors
+            print('Formset is invalid  %s' % formset.errors)
             return render_governance_object_form(request, project, formset, title, template)
             
 
@@ -291,7 +291,7 @@ def members_update(request, tab, objectId, objectType, objectMemberType, objectM
             return HttpResponseRedirect(redirect)
                       
         else:
-            print 'Formset is invalid: %s' % formset.errors
+            print('Formset is invalid: %s' % formset.errors)
             
             # redirect to form view
             return render_members_form(request, obj, formset, redirect)
@@ -343,7 +343,7 @@ def processes_update(request, project_short_name):
             
         # return to form
         else:
-            print 'Form is invalid %s' % form.errors
+            print('Form is invalid %s' % form.errors)
             return render_governance_processes_form(request, form, project)
 
 def render_governance_processes_form(request, form, project):
@@ -400,7 +400,7 @@ def organizational_role_update(request, project_short_name):
             return HttpResponseRedirect(reverse('governance_display', args=[project.short_name.lower(), tab]))
             
         else:
-            print 'Organizational Role formset is invalid: %s' % organizational_role_formset.errors
+            print('Organizational Role formset is invalid: %s' % organizational_role_formset.errors)
             
             # redorect to form
             return render_organizational_role_form(request, project, organizational_role_formset)

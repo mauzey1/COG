@@ -55,7 +55,7 @@ def ac_subscribe(request, group_name):
             status = registrationService.status(request.user.profile.openid(), group_name, ROLE_USER)
         except ObjectDoesNotExist:
             # user does not exist in ESGF database
-            print 'Inserting user into ESGF security database'
+            print('Inserting user into ESGF security database')
             esgfDatabaseManager.insertEsgfUser(request.user.profile)
             status = None
         
@@ -150,7 +150,7 @@ def ac_process(request, group_name, user_id):
                                         + "?message=%s" % SAVED)
             
         else:
-            print "Form is invalid: %s" % form.errors
+            print("Form is invalid: %s" % form.errors)
             return render(request, template, 
                           {'group_name': group_name, 'title': title, 'user': user, 'form': form})
 
