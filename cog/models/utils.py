@@ -1,25 +1,25 @@
-from project import Project
-from collaborator import Collaborator
-from project_topic import ProjectTopic
-from search_profile import SearchProfile
-from communication_means import CommunicationMeans
-from search_facet import SearchFacet
-from search_group import SearchGroup
-from post import Post
-from bookmark import Bookmark
-from doc import Doc
-from navbar import PROJECT_PAGES, DEFAULT_TABS
+from .project import Project
+from .collaborator import Collaborator
+from .project_topic import ProjectTopic
+from .search_profile import SearchProfile
+from .communication_means import CommunicationMeans
+from .search_facet import SearchFacet
+from .search_group import SearchGroup
+from .post import Post
+from .bookmark import Bookmark
+from .doc import Doc
+from .navbar import PROJECT_PAGES, DEFAULT_TABS
 from django.conf import settings
 from django.utils.timezone import now
-from news import News
+from .news import News
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
-from folder import Folder, getTopFolder, TOP_SUB_FOLDERS
+from .folder import Folder, getTopFolder, TOP_SUB_FOLDERS
 from cog.models.constants import DEFAULT_SEARCH_FACETS
-from project_tab import ProjectTab
+from .project_tab import ProjectTab
 import shutil
 import os
-from urllib import quote
+from urllib.parse import quote
 
 
 # method to retrieve all news for a given project, ordered by original publication date
@@ -104,7 +104,7 @@ def create_project_search_profile(project):
         group.save()
         # assign default facets
         facets = DEFAULT_SEARCH_FACETS
-        for key, label in facets.items():
+        for key, label in list(facets.items()):
             facet = SearchFacet(key=key, label=label, group=group)
             facet.save()
         project.searchprofile = profile
@@ -249,7 +249,7 @@ def setActiveProjectTabs(tabs, request, save=False):
         # Home tab MUST always be active
         if tab.label.endswith("Home"):
             tab.active = True
-        elif "tab_%s" % tab.label in request.POST.keys():
+        elif "tab_%s" % tab.label in list(request.POST.keys()):
             tab.active = True
         else:
             tab.active = False
@@ -273,11 +273,11 @@ def createOrUpdateProjectSubFolders(project, request=None):
     
     topFolder = getTopFolder(project)
     
-    for name in TOP_SUB_FOLDERS.values():
+    for name in list(TOP_SUB_FOLDERS.values()):
         folder, created = Folder.objects.get_or_create(name=name, parent=topFolder, project=project)
         if created:
             print('Project=%s: created top-level folder=%s' % (project.short_name, folder.name))
-        if request is not None and ("folder_%s" % folder.name) in request.POST.keys():
+        if request is not None and ("folder_%s" % folder.name) in list(request.POST.keys()):
             folder.active = True
         else:
             folder.active = False

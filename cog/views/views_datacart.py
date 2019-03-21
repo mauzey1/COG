@@ -44,7 +44,7 @@ def datacart_display(request, site_id, user_id):
         _dcs = getDataCartsForUser(openid)
         if len(_dcs) > 0:
             dcs[openid] = {}
-            for site, size in _dcs.items():
+            for site, size in list(_dcs.items()):
                 print(site, size)
                 dcs[openid][site] = size
         

@@ -1,5 +1,5 @@
-import urllib
-from urlparse import urlparse
+import urllib.request, urllib.parse, urllib.error
+from urllib.parse import urlparse
 
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -194,7 +194,7 @@ def user_add(request):
     if redirectToIdp():
         redirect_url = settings.IDP_REDIRECT + request.path
         if _next is not None:
-            redirect_url += ("?next=%s" % urllib.quote_plus(_next))
+            redirect_url += ("?next=%s" % urllib.parse.quote_plus(_next))
         print('Redirecting account creation to: %s' % redirect_url)
         return HttpResponseRedirect(redirect_url)
 
@@ -287,15 +287,15 @@ def user_add(request):
             # redirect to login page with special message
             login_url = reverse('login')+"?message=user_add"
             if _next is not None and len(_next.strip()) > 0:
-                login_url += ("&next=%s" % urllib.quote_plus(_next))
+                login_url += ("&next=%s" % urllib.parse.quote_plus(_next))
                 # redirect to absolute URL (possibly at an another node)
                 if 'http' in _next:
                     url = urlparse(_next)
                     login_url = '%s://%s%s' % (url.scheme, url.netloc, login_url)
             # append openid to initial login_url
             if userp.openid() is not None:
-                login_url += "&openid=%s" % urllib.quote_plus(userp.openid())
-            login_url += "&username=%s" % urllib.quote_plus(userp.user.username)
+                login_url += "&openid=%s" % urllib.parse.quote_plus(userp.openid())
+            login_url += "&username=%s" % urllib.parse.quote_plus(userp.user.username)
             
             response = HttpResponseRedirect(login_url)
             

@@ -4,13 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, HttpResponseServerError
 from django.shortcuts import render
 from django.template import RequestContext
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from cog.utils import getJson
-from urlparse import urlparse
+from urllib.parse import urlparse
 from cog.constants import SECTION_GLOBUS
 from cog.site_manager import siteManager
 import datetime
-from constants import GLOBUS_NOT_ENABLED_MESSAGE
+from .constants import GLOBUS_NOT_ENABLED_MESSAGE
 from functools import wraps
 import os
 import re
@@ -113,7 +113,7 @@ def download(request):
 			params.append(("distrib", "false"))
 
 			
-		url = "http://"+index_node+"/esg-search/search?"+urllib.urlencode(params)
+		url = "http://"+index_node+"/esg-search/search?"+urllib.parse.urlencode(params)
 		print('Searching for files at URL: %s' % url)
 		jobj = getJson(url)
 		
@@ -171,7 +171,7 @@ def transfer(request):
 				   # ('lock', 'ep'), # do NOT allow the user to change their endpoint
 				   ('action', request.build_absolute_uri(reverse("globus_oauth")) ), # redirect to CoG Oauth URL
 				 ]
-		globus_url = GLOBUS_SELECT_DESTINATION_URL + "?" + urllib.urlencode(params)
+		globus_url = GLOBUS_SELECT_DESTINATION_URL + "?" + urllib.parse.urlencode(params)
 		print("Redirecting to: %s" % globus_url)
 		return HttpResponseRedirect(globus_url)
 		# replacement URL for localhost development
@@ -239,14 +239,14 @@ def submit(request):
 	target_endpoint = request.session[TARGET_ENDPOINT]
 	target_folder = request.session[TARGET_FOLDER]
 	
-	print('Downloading files=%s' % download_map.items())
+	print('Downloading files=%s' % list(download_map.items()))
 	print('User selected destionation endpoint:%s, folder: %s' % (target_endpoint, target_folder))
 
 	api_client = TransferAPIClient(username, goauth=access_token)
 	# loop over source endpoints and autoactivate them
 	# if the autoactivation fails, redirect to a form asking for a password
 	activateEndpoint(api_client, target_endpoint)
-	for source_endpoint, source_files in download_map.items():
+	for source_endpoint, source_files in list(download_map.items()):
 		status, message = activateEndpoint(api_client, source_endpoint, openid, password)
 		if not status:
 			return render(request,
@@ -255,7 +255,7 @@ def submit(request):
 
 	# loop over source endpoints, submit one transfer for each source endpoint
 	task_ids = []  # list of submitted task ids
-	for source_endpoint, source_files in download_map.items():
+	for source_endpoint, source_files in list(download_map.items()):
 			
 		# submit transfer request
 		task_id = submitTransfer(api_client, source_endpoint, source_files, target_endpoint, target_folder)

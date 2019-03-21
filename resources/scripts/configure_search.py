@@ -1,5 +1,5 @@
 # Python script to configure off-band a project advanced search
-import sys, os, ConfigParser
+import sys, os, configparser
 
 sys.path.append( os.path.abspath(os.path.dirname('.')) )
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'

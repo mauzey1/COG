@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from cog.models import *
 from cog.forms import *
-from constants import PERMISSION_DENIED_MESSAGE
+from .constants import PERMISSION_DENIED_MESSAGE
 from os.path import basename
 from django.views.decorators.csrf import csrf_exempt
 from cog.forms import UploadImageForm

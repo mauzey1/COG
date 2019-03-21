@@ -2,7 +2,7 @@ import re
 from django import forms
 import os
 import datetime
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import json
 
 # timeout for JSON HTTP requests
@@ -65,8 +65,8 @@ def getJson(url):
     '''Retrieves and parses a JSON document at some URL.'''
     
     try:
-        opener = urllib2.build_opener()
-        request = urllib2.Request(url)
+        opener = urllib.request.build_opener()
+        request = urllib.request.Request(url)
         response = opener.open(request, timeout=TIMEOUT)
         jdoc = response.read()
         return json.loads(jdoc)

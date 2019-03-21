@@ -1,6 +1,6 @@
 from django.db import models
-from constants import APPLICATION_LABEL
-from project import Project
+from .constants import APPLICATION_LABEL
+from .project import Project
 from django.contrib.auth.models import User
 import os
 from django.conf import settings

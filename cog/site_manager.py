@@ -1,6 +1,6 @@
 import os
 import time
-import ConfigParser
+import configparser
 import logging
 
 from cog.constants import (SECTION_ESGF, SECTION_GLOBUS, SECTION_PID)
@@ -22,7 +22,7 @@ class SiteManager(object):
             logging.info("Waiting to read configuration file: %s" % SiteManager.CONFIGFILEPATH )
             time.sleep(1)
 
-        self.config = ConfigParser.ConfigParser(allow_no_value=True)
+        self.config = configparser.ConfigParser(allow_no_value=True)
         # location of site specific settings configuration file
         self.cog_config_dir = SiteManager.COG_CONFIG_DIR
         try:

@@ -86,7 +86,7 @@ class ProjectManager(object):
             #remote_site.save()
                         
             # first loop to create ALL projects first
-            for key, pdict in jobj["projects"].items():
+            for key, pdict in list(jobj["projects"].items()):
                               
                 short_name = pdict['short_name']
                 long_name = pdict['long_name']
@@ -107,7 +107,7 @@ class ProjectManager(object):
                         print('Project with name:%s already exists (local or remote)' % short_name)
             
             # second loop to update project attributes and associations
-            for key, pdict in jobj["projects"].items():
+            for key, pdict in list(jobj["projects"].items()):
                 
                 short_name = pdict['short_name']
                 long_name = pdict['long_name']

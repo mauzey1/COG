@@ -169,7 +169,7 @@ def sync_projects(request):
     
     return render(request,
                   'cog/admin/sync_projects.html', 
-                  {'sites':sorted(sites.iteritems(), key=lambda (siteid, sitedict): sitedict['name']), 
+                  {'sites':sorted(iter(sites.items()), key=lambda siteid_sitedict: siteid_sitedict[1]['name']), 
                    'totalNumberOfProjects':totalNumberOfProjects, 'totalNumberOfUsers':totalNumberOfUsers })
         
     

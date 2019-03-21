@@ -1,5 +1,5 @@
 from django.db import models
-import ConfigParser
+import configparser
 from datetime import datetime
 import os
 
@@ -36,7 +36,7 @@ class Facet:
         
     def printme(self):
         print("Facet key=%s label=%s" % (self.key, self.label))
-        for value, counts in self.values.items():
+        for value, counts in list(self.values.items()):
             print("\tValue=%s counts=%d" % (value, counts))
             
 class SearchInput:
@@ -101,7 +101,7 @@ class SearchInput:
         print("Search Input")
         print("\t Query=%s Type=%s Offset=%d Limit=%d Max Version=%s Min Version=%s" % (self.query, self.type, self.offset, self.limit, 
                                                                                         self.max_version, self.min_version))
-        for key, values in self.constraints.items():
+        for key, values in list(self.constraints.items()):
             print("\t Constraint key=%s value(s)=%s" % (key, values))
         
         
@@ -117,7 +117,7 @@ class SearchOutput:
         
     def printme(self):
         print("Search Output: total number of results=%d" % self.counts)
-        for facet in self.facets.values():
+        for facet in list(self.facets.values()):
             facet.printme()
         for record in self.results:
             record.printme()
@@ -137,7 +137,7 @@ class Record:
             
     def printme(self):
         print("Record id=%s" % self.id)
-        for name, values in self.fields.items():
+        for name, values in list(self.fields.items()):
             print("\tField name=%s values=%s" % (name, values))
                         
 class FacetProfile:
@@ -156,7 +156,7 @@ class FacetProfile:
         self.map = {}
         for group in self.facetGroups:
             self.keys = self.keys + group.keys
-            self.map = dict( self.map.items() + group.map.items() )
+            self.map = dict( list(self.map.items()) + list(group.map.items()) )
                         
     def getAllKeys(self):
         """Returns a list of keys over all its facet groups."""
@@ -237,7 +237,7 @@ class SearchMappings(object):
         CONFIGFILEPATH = os.path.join(cog_config_dir, 'cog_search.cfg')
         
         self.mappings = {}
-        config = ConfigParser.RawConfigParser()
+        config = configparser.RawConfigParser()
         try:
             config.read( CONFIGFILEPATH )
             for facet_key in config.sections():

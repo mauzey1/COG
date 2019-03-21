@@ -1,18 +1,18 @@
 
 from cog.utils import smart_truncate
-from constants import *
-from navbar import *
+from .constants import *
+from .navbar import *
 from django.conf import settings
 from django.contrib.auth.models import User, Permission, Group
 from django.db import models
 from django.db.models import Q
 from django.forms import Textarea
-from membership import MembershipRequest
+from .membership import MembershipRequest
 from os.path import basename
 from cog.models.user_profile import UserProfile
 from cog.models.topic import Topic
 from cog.models.project_tag import ProjectTag
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import os
 import sys
 import re

@@ -7,7 +7,7 @@ python manage.py sync_users
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from cog.models.user_profile import isUserLocal
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 HTTP_STATUS_CODE_OK = 200
 HTTP_STATUS_CODE_NOT_FOUND = 404
@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 print("\nChecking user at URL: %s" % userProfileUrl.decode("utf-8"))
                 
                 try:
-                    response = urllib.urlopen( userProfileUrl )
+                    response = urllib.request.urlopen( userProfileUrl )
                     if response.getcode()==HTTP_STATUS_CODE_NOT_FOUND:
                         
                         print('\tUser not found on remote node %s, deleting from local database...' % user.profile.site.domain)

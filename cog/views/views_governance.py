@@ -3,14 +3,14 @@ from cog.models import *
 from cog.models.constants import LEAD_ORGANIZATIONAL_ROLES_DICT, \
     ROLE_CATEGORY_LEAD, ROLE_CATEGORY_MEMBER, MANAGEMENT_BODY_CATEGORY_STRATEGIC, \
     MANAGEMENT_BODY_CATEGORY_OPERATIONAL
-from constants import PERMISSION_DENIED_MESSAGE
+from .constants import PERMISSION_DENIED_MESSAGE
 from django.contrib.auth.decorators import login_required
 from django.forms.models import BaseInlineFormSet, inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.utils.functional import curry
-from utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
+from .utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
 from cog.models.navbar import TABS, TAB_LABELS
 from cog.views.views_templated import templated_page_display
 from cog.models.auth import userHasAdminPermission

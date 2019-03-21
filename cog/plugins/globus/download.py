@@ -9,7 +9,7 @@ from uuid import uuid4
 
 def listEndpoints(gendpointDict):
 
-    endNames = gendpointDict.keys()
+    endNames = list(gendpointDict.keys())
     print("Endpoints involved:")
     for thisEndName in endNames:
         print(thisEndName)
@@ -56,7 +56,7 @@ def getFiles(gendpointDict, uendpoint, username, upath):
 
     label = str(uuid4())
 
-    endNames = gendpointDict.keys()
+    endNames = list(gendpointDict.keys())
 
     for thisEndName in endNames:
 

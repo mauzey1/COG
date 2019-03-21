@@ -20,18 +20,14 @@ from django.core.exceptions import ObjectDoesNotExist
 #import certifi
 NS = "http://www.esgf.org/whitelist"
 
-class WhiteList(object):
-
-    __metaclass__ = abc.ABCMeta
+class WhiteList(object, metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def trust(self, openid):
         '''Returns true if an openid can be trusted, false otherwise.'''
         pass
     
-class KnownProvidersDict(object):
-    
-    __metaclass__ = abc.ABCMeta
+class KnownProvidersDict(object, metaclass=abc.ABCMeta):
     
     @abc.abstractmethod
     def idpDict(self):

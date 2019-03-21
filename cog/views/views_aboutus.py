@@ -20,7 +20,7 @@ from cog.views.views_templated import templated_page_display
 from cog.util.thumbnails import *
 from cog.models.auth import userHasAdminPermission
 
-from constants import PERMISSION_DENIED_MESSAGE
+from .constants import PERMISSION_DENIED_MESSAGE
 
 
 def aboutus_display(request, project_short_name, tab):

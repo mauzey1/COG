@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from cog.models import *
 from cog.models.auth import userHasContributorPermission
 from cog.forms import *
-from constants import PERMISSION_DENIED_MESSAGE
+from .constants import PERMISSION_DENIED_MESSAGE
 from cog.views.utils import paginate
 
 

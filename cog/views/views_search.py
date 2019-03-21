@@ -1,7 +1,7 @@
 from copy import copy, deepcopy
 import json
-import urllib, urllib2
-from urllib2 import HTTPError
+import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
+from urllib.error import HTTPError
 
 from cog.config.search import SearchConfigParser
 from cog.forms.forms_search import *
@@ -93,7 +93,7 @@ def _addConfigConstraints(searchInput, searchConfig):
     _searchInput = deepcopy(searchInput)
     
     # add fixed constraints - but do NOT override previous values
-    for key, values in searchConfig.fixedConstraints.items():
+    for key, values in list(searchConfig.fixedConstraints.items()):
         if not _searchInput.hasConstraint(key):
             _searchInput.setConstraint(key, values)            
     return _searchInput
@@ -172,7 +172,7 @@ def search_config(request, searchConfig, extra={}, fromRedirectFlag=False):
     
     if request.method == 'GET':
         # GET pre-seeded search URL -> invoke POST immediately
-        if len(queryDict.keys()) > 0 and not fromRedirectFlag: 
+        if len(list(queryDict.keys())) > 0 and not fromRedirectFlag: 
             return search_post(request, searchInput, searchConfig, extra)
         else:
             return search_get(request, searchInput, searchConfig, extra, fromRedirectFlag)
@@ -348,7 +348,7 @@ def search_post(request, searchInput, searchConfig, extra={}):
     # for key, values in searchInput.constraints.items():
     # note: request parameters do NOT include the project fixed constraints
     req_constraints = []  # latest constraints from request
-    for key, value in queryDict.items():
+    for key, value in list(queryDict.items()):
         if not key in SEARCH_PATH_EXCLUDE and value != 'on':  # value from 'checkbox_...'
             if value is not None and len(value) > 0:  # disregard empty facet
                 print('key=%s value=%s' % (key, value))
@@ -392,9 +392,9 @@ def metadata_display(request, project_short_name):
     if type == 'File':
         params.append(('dataset_id', dataset_id))
                 
-    url = "http://"+index_node+"/esg-search/search?"+urllib.urlencode(params)
+    url = "http://"+index_node+"/esg-search/search?"+urllib.parse.urlencode(params)
     print('Metadata Solr search URL=%s' % url)
-    fh = urllib2.urlopen(url)
+    fh = urllib.request.urlopen(url)
     response = fh.read().decode("UTF-8")
 
     # parse JSON response (containing only one matching 'doc)
@@ -405,9 +405,9 @@ def metadata_display(request, project_short_name):
     parentMetadata = {}
     if type == 'File':
         params = [('type', 'Dataset'), ('id', dataset_id), ("format", "application/solr+json"), ("distrib", "false")]
-        url = "http://"+index_node+"/esg-search/search?"+urllib.urlencode(params)
+        url = "http://"+index_node+"/esg-search/search?"+urllib.parse.urlencode(params)
         # print 'Solr search URL=%s' % url
-        fh = urllib2.urlopen(url)
+        fh = urllib.request.urlopen(url)
         response = fh.read().decode("UTF-8")
         jsondoc = json.loads(response)
         parentMetadata = _processDoc(jsondoc["response"]["docs"][0])
@@ -850,9 +850,9 @@ def search_files(request, dataset_id, index_node):
     else:
         params.append(("distrib", "false"))
  
-    url = "http://"+index_node+"/esg-search/search?"+urllib.urlencode(params)
+    url = "http://"+index_node+"/esg-search/search?"+urllib.parse.urlencode(params)
     print('Searching for files: URL=%s' % url)
-    fh = urllib2.urlopen(url)
+    fh = urllib.request.urlopen(url)
     response = fh.read().decode("UTF-8")
 
     return HttpResponse(response, content_type="application/json")
@@ -920,13 +920,13 @@ def search_profile_order(request, project_short_name):
         valid = True  # form data validation flag
         errors = {} # form validation errors
         
-        for group, facets in groups.items():
+        for group, facets in list(groups.items()):
                         
             group_key = SEARCH_GROUP_KEY + str(group.name)
             group_order = request.POST[group_key]
             group.order = int(group_order) # reassign the group orde WITHOUT saving to the database for now
             # validate group order
-            if group_order in groupOrderMap.values():
+            if group_order in list(groupOrderMap.values()):
                 valid = False
                 errors[group_key] = "Duplicate search facet number: %d" % int(group_order)
             else:
@@ -939,7 +939,7 @@ def search_profile_order(request, project_short_name):
                 facet_order = request.POST[facet_key]
                 facet.order = facet_order
                 # validate facet order within this group
-                if facet_order in facetOrderMap.values():
+                if facet_order in list(facetOrderMap.values()):
                     valid = False
                     errors[facet_key] = "Duplicate facet number: %d" % int(facet_order)
                 else:
@@ -949,7 +949,7 @@ def search_profile_order(request, project_short_name):
         if valid:
             
             # save new ordering for groups, facets
-            for group, facets in groups.items():
+            for group, facets in list(groups.items()):
                 group.save()
                 for facet in facets:
                     facet.save()
@@ -991,10 +991,10 @@ def citation_display(request):
     url = request.GET.get('url', '')
 
     try:
-        fh = urllib2.urlopen(url)
+        fh = urllib.request.urlopen(url)
         response = fh.read()
         headers = fh.info().dict
-    except HTTPError, e:
+    except HTTPError as e:
         print(('HTTPError %s for %s' % (str(e.code), url)))
         return HttpResponseNotFound()
 
@@ -1004,7 +1004,7 @@ def citation_display(request):
 
     try:
         json.loads(response)
-    except ValueError, e:
+    except ValueError as e:
         print('Citation not valid json: %s' % url)
         return HttpResponseNotFound()
 

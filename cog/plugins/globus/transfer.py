@@ -12,7 +12,7 @@ if siteManager.isGlobusEnabled():
     from globusonline.transfer.api_client import TransferAPIError
     from globusonline.transfer.api_client import x509_proxy
 import os
-import urlparse
+import urllib.parse
 
 DOWNLOAD_SCRIPT = "download.py"
 
@@ -40,7 +40,7 @@ def activateEndpoint(api_client, endpoint, openid=None, password=None):
             return (False, "")
         return (True, "")
 
-    openid_parsed = urlparse.urlparse(openid)
+    openid_parsed = urllib.parse.urlparse(openid)
     hostname = openid_parsed.hostname
     username = os.path.basename(openid_parsed.path)
     code, reason, reqs = api_client.endpoint_activation_requirements(endpoint)

@@ -1,6 +1,6 @@
 from django.db import models
-from constants import APPLICATION_LABEL
-from project import Project
+from .constants import APPLICATION_LABEL
+from .project import Project
 from collections import OrderedDict
 from cog.models.dbutils import UnsavedForeignKey
 
@@ -47,7 +47,7 @@ class Folder(models.Model):
             return self.parent.topParent()  # recursion
 
     def isPredefined(self):
-        return self.parent is None or self.name in TOP_SUB_FOLDERS.values()
+        return self.parent is None or self.name in list(TOP_SUB_FOLDERS.values())
 
     class Meta:
         unique_together = (("project", "name"),)
@@ -80,7 +80,7 @@ def getTopSubFolders(project):
     _folders = []
     # select pre-defined folders
     for folder in folders:
-        if folder.name in TOP_SUB_FOLDERS.values():
+        if folder.name in list(TOP_SUB_FOLDERS.values()):
             _folders.append(folder)
 
     return _folders

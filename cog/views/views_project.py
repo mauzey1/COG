@@ -160,7 +160,7 @@ def project_index(request, project_short_name):
                 topicvalue = request.POST[topickey]
                 ii.order = topicvalue
                 # validate topic order
-                if topicvalue in topicMap.values():
+                if topicvalue in list(topicMap.values()):
                     valid = False
                     errors[topickey] = "Duplicate topic number: %d" % int(topicvalue)
                 else:
@@ -173,7 +173,7 @@ def project_index(request, project_short_name):
                 pagevalue = request.POST[pagekey]
                 page.order = pagevalue
                 # validate page order
-                if pagevalue in pageMap.values():
+                if pagevalue in list(pageMap.values()):
                     valid = False
                     errors[pagekey] = "Duplicate page number: %d" % int(pagevalue)
                 else:
@@ -952,9 +952,9 @@ def _getUnsavedProjectSubFolders(project, request):
     """
     
     folders = []
-    for key, value in TOP_SUB_FOLDERS.items():
+    for key, value in list(TOP_SUB_FOLDERS.items()):
         folder = Folder(name=value, project=project, active=False)
-        if request is not None and ("folder_%s" % value) in getQueryDict(request).keys():
+        if request is not None and ("folder_%s" % value) in list(getQueryDict(request).keys()):
             folder.active = True
         folders.append(folder)
     return folders

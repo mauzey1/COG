@@ -12,7 +12,7 @@ instance methods from functions.
 import os
 import sys
 import shutil
-from urllib import urlencode
+from urllib.parse import urlencode
 from types import MethodType
 
 # DJANGO IMPORTS

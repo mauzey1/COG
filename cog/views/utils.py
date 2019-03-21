@@ -8,7 +8,7 @@ from cog.utils import getJson, str2bool
 from cog.models.peer_site import getPeerSites
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from collections import OrderedDict
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -174,18 +174,18 @@ def get_all_shared_user_info(user, includeCurrentSite=True):
     # restructure information as list of (project object, user roles) and (group name, group roles) tuples
     projects = []
     groups = []
-    for usite, udict in userDict.items():
+    for usite, udict in list(userDict.items()):
         if udict.get('projects', None):
-            for pname, proles in udict["projects"].items():
+            for pname, proles in list(udict["projects"].items()):
                 try:
                     proj = Project.objects.get(short_name__iexact=pname)
                     projects.append((proj, proles))
                 except ObjectDoesNotExist:
                     pass
         if udict.get('groups', None):
-            for gname, gdict in udict["groups"].items():
+            for gname, gdict in list(udict["groups"].items()):
                 groles = []
-                for grole, approved in gdict.items():
+                for grole, approved in list(gdict.items()):
                     if approved:
                         groles.append(grole)
                 groups.append((gname,groles))
@@ -199,9 +199,9 @@ def add_get_parameter(url, key, value):
     """
     
     if '?' in url:
-        return url + "&%s" % urllib.urlencode([(key, value)])
+        return url + "&%s" % urllib.parse.urlencode([(key, value)])
     else:
-        return url + "?%s" % urllib.urlencode([(key, value)])
+        return url + "?%s" % urllib.parse.urlencode([(key, value)])
     
 def getQueryDict(request):
     '''Utiity method to return the query dictionary for a GET or POST request.'''

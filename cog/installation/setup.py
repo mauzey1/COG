@@ -26,7 +26,7 @@ class CogSetupCommand(Command):
         
         # 1) create/update cog_settings.cfg BEFORE Django is started
         print('>>> 1) Executing CogConfig...')
-        from config import CogConfig
+        from .config import CogConfig
         cogConfig = CogConfig(self.esgf)
         cogConfig.config()
         print('<<< ...done with CogConfig')
@@ -40,7 +40,7 @@ class CogSetupCommand(Command):
              
         # 3) use cog_settings.cfg to install/upgrade CoG database
         print('>>> 3) Executing CoGInstall...')
-        from install import CoGInstall
+        from .install import CoGInstall
         cogInstall = CoGInstall()
         cogInstall.install()
         print('<<< ...done with CoGInstall')

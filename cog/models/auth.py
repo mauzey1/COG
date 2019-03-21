@@ -3,7 +3,7 @@
 
 from django.contrib.auth.models import User, Permission, Group
 from django.contrib.contenttypes.models import ContentType
-from constants import APPLICATION_LABEL, ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_USER
+from .constants import APPLICATION_LABEL, ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_USER
 
 # GROUPS
 

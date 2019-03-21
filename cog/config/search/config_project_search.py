@@ -1,4 +1,4 @@
-import sys, os, ConfigParser
+import sys, os, configparser
 from django.conf import settings
 from cog.models import Project, SearchGroup, SearchFacet
 from cog.utils import str2bool
@@ -15,7 +15,7 @@ class SearchConfigParser():
     def _getConfigParser(self):
         
         # read project configuration
-        configParser = ConfigParser.RawConfigParser()
+        configParser = configparser.RawConfigParser()
         # must set following line explicitly to preserve the case of configuration keys
         configParser.optionxform = str 
         

@@ -10,11 +10,11 @@ from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from string import Template
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import copy
-from constants import PERMISSION_DENIED_MESSAGE, LOCAL_PROJECTS_ONLY_MESSAGE
+from .constants import PERMISSION_DENIED_MESSAGE, LOCAL_PROJECTS_ONLY_MESSAGE
 from cog.models.constants import SIGNAL_OBJECT_CREATED, SIGNAL_OBJECT_UPDATED, SIGNAL_OBJECT_DELETED
-from utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
+from .utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
 from django.utils.timezone import now
 from cog.models.utils import delete_doc
 from django.conf import settings

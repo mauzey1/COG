@@ -7,9 +7,9 @@ from cog.forms.forms_bookmarks import *
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 import json
 from django.http import HttpResponse  
-from constants import PERMISSION_DENIED_MESSAGE, BAD_REQUEST
-from utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
-from views_post import post_add
+from .constants import PERMISSION_DENIED_MESSAGE, BAD_REQUEST
+from .utils import getProjectNotActiveRedirect, getProjectNotVisibleRedirect
+from .views_post import post_add
 from cog.models.auth import userHasContributorPermission
 
 
@@ -134,7 +134,7 @@ def bookmark_add2(request, project_short_name):
         else:
             print('Form is invalid: %s' % form.errors)
             # encode errors in response - although not used
-            for key, value in form.errors.items():
+            for key, value in list(form.errors.items()):
                 response_data['errors'][key] = value           
             response_data['result'] = 'Error'
             response_data['message'] = 'Sorry, the form data is invalid: %s' % form.errors

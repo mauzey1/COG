@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from constants import APPLICATION_LABEL, RESEARCH_KEYWORDS_MAX_CHARS, RESEARCH_INTERESTS_MAX_CHARS
+from .constants import APPLICATION_LABEL, RESEARCH_KEYWORDS_MAX_CHARS, RESEARCH_INTERESTS_MAX_CHARS
 from django.conf import settings
 
 from cog.utils import hasText
@@ -146,7 +146,7 @@ def discoverSiteForUser(openid):
         url = "http://%s/share/user/?openid=%s" % (site.domain, openid)
         jobj = getJson(url)
         if jobj is not None:
-            for key, value in jobj['users'].items():
+            for key, value in list(jobj['users'].items()):
                 if str(value['home_site_domain']) == site.domain:
                     return site  # node found
             
@@ -169,7 +169,7 @@ def getDataCartsForUser(openid):
         print('Querying for datacart: url=%s' % url)
         jobj = getJson(url)
         if jobj is not None:
-            for key, value in jobj['users'].items():
+            for key, value in list(jobj['users'].items()):
                 dcs[ site ] = int( value['datacart']['size'] )
             
     return dcs
