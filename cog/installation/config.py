@@ -180,13 +180,13 @@ class CogConfig(object):
         # PEER_NODES = /esg/config/esgf_cogs.xml
         self._safeSet('PEER_NODES', PEER_NODES)
         # option to send SESSION and CSRF cookies via SSL only - requires full SSL-encrypted site
-        self._safeSet('PRODUCTION_SERVER', True)
+        self._safeSet('PRODUCTION_SERVER', 'True')
         # ESGF software stack version
         esgfVersion = self._safeGet("version", default=None)
         if esgfVersion:
             self._safeSet('ESGF_VERSION', esgfVersion, override=True)
         # option to disable CAPTCHA for creating account in automatic testing
-        self._safeSet('USE_CAPTCHA', True)
+        self._safeSet('USE_CAPTCHA', 'True')
 
         
         #[ESGF]
