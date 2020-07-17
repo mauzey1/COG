@@ -67,14 +67,15 @@
 
 	  // FIXME: relative wget URL is hard-wired to ESGF web service endpoint
 	  var url = "{{ WGET_API_URL }}"; 
+
+	  // add dataset ids
+	  dataset_ids = ids.map(function(el){
+	    return "dataset_id=" + encodeURIComponent(el);
+	  });
+	  url += "?" + dataset_ids.join("&");
 	  
 	  // add optional query filter
 	  url += getQueryFilter('GET');
-
-	  // add dataset ids
-	  for (i=0; i<ids.length; i++) {
-		url += "&dataset_id="+encodeURIComponent(ids[i]);
-	  }
 	  
 	  // execute synchronous request for one wget script
 	  // execute HTTP GET request
