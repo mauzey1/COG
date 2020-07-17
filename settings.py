@@ -38,6 +38,7 @@ VISUS_SITE = siteManager.get('VISUS_SITE', default=None)
 HOME_PROJECT = siteManager.get('HOME_PROJECT', default='cog')
 MEDIA_ROOT = siteManager.get('MEDIA_ROOT', default="%s/site_media" % siteManager.cog_config_dir)
 DEFAULT_SEARCH_URL = siteManager.get('DEFAULT_SEARCH_URL', default='http://hydra.fsl.noaa.gov/esg-search/search/')
+WGET_API_URL = siteManager.get('WGET_API_URL', default='https://esgf-node.llnl.gov/wget/')
 DJANGO_DATABASE = siteManager.get('DJANGO_DATABASE', default='sqllite3')
 if siteManager.get('DEBUG', default='False').lower() == 'true':
     DEBUG = True

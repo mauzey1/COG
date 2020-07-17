@@ -60,21 +60,13 @@
 
 	// function to execute a request to a single index node
 	// for a wget script spanning one or more datasets
-	function wgetScript(index_node, shard, ids) {
+	function wgetScript(ids) {
 		
 	  // NOTE: must transform the "," separated string into array of dataset ids
 	  ids = ids.split(",");
 
 	  // FIXME: relative wget URL is hard-wired to ESGF web service endpoint
-	  var url = "http://"+index_node+"/esg-search/wget/"; 
-	
-	  // add optional 'local' shard
-	  if (shard.length>0) {
-	  	  url += "?shards=" + encodeURI(shard+"/solr");  // "?shards=localhost:8982/solr"
-	  // or target shared "slave" shard only
-	  } else {
-      	  url += "?distrib=false";
-	  }
+	  var url = "{{ WGET_API_URL }}"; 
 	  
 	  // add optional query filter
 	  url += getQueryFilter('GET');
@@ -130,7 +122,7 @@
 			  	if (index_node_and_shard.length==2) {
 			  		shard = index_node_and_shard[1];
 			  	} 
-			  	html += "<br/><a href='javascript:wgetScript(\""+index_node+"\",\""+shard+"\",\""+ids+"\")'>WGET Script for "+index_node;
+			  	html += "<br/><a href='javascript:wgetScript(\""+ids+"\")'>WGET Script for "+index_node;
 			  	if (shard.length>0) {
 			  		html += " (shard="+shard+")";
 			  	}

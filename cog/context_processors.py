@@ -8,4 +8,5 @@ def cog_settings(request):
     
     # example key-value pair
     return { 'site': Site.objects.get_current(),
-            'DEFAULT_SEARCH_URL': settings.DEFAULT_SEARCH_URL }
+            'DEFAULT_SEARCH_URL': settings.DEFAULT_SEARCH_URL,
+            'WGET_API_URL': settings.WGET_API_URL }

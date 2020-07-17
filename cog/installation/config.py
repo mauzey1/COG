@@ -167,6 +167,8 @@ class CogConfig(object):
         self._safeSet('HOME_PROJECT', DEFAULT_PROJECT_SHORT_NAME)
         # default search service URL, before any project customization
         self._safeSet('DEFAULT_SEARCH_URL','http://%s/esg-search/search/' % hostName)
+        # default wget API URL, before any project customization
+        self._safeSet('WGET_API_URL','https://%s/wget/' % hostName)
         # interval between updates of user's projects, during user session
         self._safeSet('MY_PROJECTS_REFRESH_SECONDS', '3600')
         # optional number of days after which password expire
