@@ -110,13 +110,15 @@
 
 		// description
 		html += "<div style='text-align:center;'>For better performance, WGET scripts are generated for each Data Center separately."
-		      + "<br/>Click on each link below to retrieve the script for each Data Center.</div>";
+			+ "<br/>Click on each link below to retrieve the script for each Data Center.</div>";
 
 		html += "<div style='text-align:center'>";
+		var selected_ids = "";
 		for (var wget_key in jsonResponse) {
 			  if (jsonResponse.hasOwnProperty(wget_key)) {
 				// NOTE: ids is an array but becomes a string when enclosed in ""
 			    var ids = jsonResponse[wget_key];
+				selected_ids = selected_ids + "," + ids;
 			  	var index_node_and_shard = wget_key.split("|");
 			  	var index_node = index_node_and_shard[0];
 			  	var shard = '';
@@ -130,6 +132,7 @@
 			  	html += "</a>";
 			  }
 		}
+		html += "<br/><a href='javascript:wgetScript(\""+selected_ids+"\")'>WGET Script for all selected datasets</a>";
 		html += "</div>";
 
 		// display wget-script panel with new content
