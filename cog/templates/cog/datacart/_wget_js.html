@@ -118,7 +118,11 @@
 			  if (jsonResponse.hasOwnProperty(wget_key)) {
 				// NOTE: ids is an array but becomes a string when enclosed in ""
 			    var ids = jsonResponse[wget_key];
-				selected_ids = selected_ids + "," + ids;
+				if (selected_ids == "") {
+					selected_ids = ids;
+				} else {
+					selected_ids = selected_ids + "," + ids;
+				}
 			  	var index_node_and_shard = wget_key.split("|");
 			  	var index_node = index_node_and_shard[0];
 			  	var shard = '';
